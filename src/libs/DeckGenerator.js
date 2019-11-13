@@ -22,7 +22,7 @@ export default class DeckGenerator {
    *                                deckbuilder
    * @return {null}               
    */
-  generate(values, chosenDecks, deletedDecks) {
+  generate(values, chosenDecks, deletedDecks, team) {
     // Send update
     this.updateListener(deckBuilderUpdates.STARTED);
 
@@ -38,7 +38,7 @@ export default class DeckGenerator {
     const filename = this.generateFilename(customerName);
 
     // Copy the master deck into the destination folder
-    this.googleHelper.copyMasterDeck(filename, this.folderId)
+    this.googleHelper.copyMasterDeck(filename, this.folderId, team)
     .then((fileId) => {
 
       this.updateListener(deckBuilderUpdates.ACCESSING_NEW_DECK, { fileId });

@@ -37,11 +37,24 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    console.log(getParameterByName('user'));
+
+
     // Set the initial state of the component
     this.state = {
       googleLoaded:       false,  // Whether the Google SDK has loaded yet
       loggedIn:           null,   // Whether the user is successfully logged in to Google or not
-      team:               'se',   // This could be used in the future to build other team's decks
+      team:               getParameterByName('user'),   // This could be used in the future to build other team's decks
       folder:             null,   // This is the folder id for the chosen Drive folder
       googleUsername:     null,   // This is the user's name for the welcome message
       deckUrl:            null    // The ID of the new presentation so we can link to it at the end
@@ -56,6 +69,7 @@ class App extends React.Component {
    * @return {null}
    */
   componentDidMount() {
+    
     // Set up the Google Helper
     this.googleHelper.load()
     .then(() => {
@@ -84,6 +98,7 @@ class App extends React.Component {
     const { loggedIn, googleUsername, folder, deckUrl, team } = this.state;
 
     const folderName = (folder !== null) ? folder.name : "";
+
 
     return (
       <Router>

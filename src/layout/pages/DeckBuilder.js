@@ -14,7 +14,9 @@ import {
   Spin
 } from 'antd';
 
-const masterDeckStructure = 'https://api.sheety.co/6f260fb0-04d8-4732-b8f2-0dc87c295fc0';
+let deckStructure = 'https://api.sheety.co/6f260fb0-04d8-4732-b8f2-0dc87c295fc0';
+const seMasterDeckStructure = 'https://api.sheety.co/6f260fb0-04d8-4732-b8f2-0dc87c295fc0';
+const psscMasterDeckStructure = 'https://api.sheety.co/cc2429e6-96ed-4244-890b-e2302b0e3996';
 
 class DeckBuilder extends React.Component {
 
@@ -26,6 +28,13 @@ class DeckBuilder extends React.Component {
   constructor(props) {
     super(props);
 
+    if(props.team == "se"){
+      deckStructure = seMasterDeckStructure;
+    } else if(props.team == "pssc"){
+      deckStructure = psscMasterDeckStructure;
+    } else {
+      deckStructure = seMasterDeckStructure;
+    }
     // Get notification helper instance
     this.notificationHelper = new NotificationHelper();
 
@@ -47,7 +56,7 @@ class DeckBuilder extends React.Component {
 
   componentDidMount() {
     // Fetch the deck sections and lengths from: https://docs.google.com/spreadsheets/d/1lAorVfpa8xeOMuT95lLj_I8YblvzMzy2-TlH1ttkn-A/edit#gid=0
-    fetch(masterDeckStructure)
+    fetch(deckStructure)
     .then((response) => {
       response.json()
       .then((data) => {
@@ -312,7 +321,7 @@ class DeckBuilder extends React.Component {
         );
 
         // Start the deck generator
-        deckGenerator.generate(values, chosenDecks, deletedDecks);
+        deckGenerator.generate(values, chosenDecks, deletedDecks, this.props.team);
       }
     });
   }

@@ -43,7 +43,7 @@ class AppLayout extends React.Component {
             <Title 
               level={2}
               style={{marginBottom: 25}}
-            >Optimizely SE Deck Builder</Title>
+            >Optimizely Deck Builder</Title>
 
             <Steps size="small" current={this.getCurrentStep(pathname)} style={{marginBottom: 25}}>
               <Step title="Login to Google" description={username} />
