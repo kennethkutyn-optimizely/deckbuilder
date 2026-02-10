@@ -9,7 +9,7 @@
     "react-ga": "^2.6.0",
     "react-list-drag-and-drop": "^0.9.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.1.1"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
